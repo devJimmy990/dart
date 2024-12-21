@@ -1,10 +1,21 @@
-# Muhammed Gamal Ahmed Gad
-Trainee at ACC | Sprints - Flutter Mobile Development BootCamp
+# Control Flow Module
 
-## Sprint Dart Tasks
- This Repo is for all dart tasks during the dart program and each task will has it`s own branch and readme file, just switch between branches
-
-## Branch Convention Name: {task-num}-{task-name}
-ex: task1-calculate-total-cost-of-grocery-items
+## Categorize a list of numbers into even or odd
+Categorize a list of numbers into even or odd using for loop and switch case
 
 
+
+### Requirement 1
+- Title: Categorize a list of numbers into even or odd
+- Description: Add a list of numbers  Iterate each number in the list using for for-loop Use the switch case to check if it is even or odd
+
+
+===============================================================================
+### Draft
+- I have List of numbers that i need to categorize
+
+- Make Iteration to catch each value by index
+
+- Using switch to check if value odd or even by oprator %2 if 0 become even else become odd
+
+- print value and the result after checking
