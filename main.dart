@@ -16,48 +16,78 @@ void main(List<String> args) {
 
 void printAccountStatement(BankAccount account) {
   print(
-      '------------------------ Account Statement for: ${account.id} -------------------------------------');
-  print('|\t\t\t\t\t\t\t\t\t\t\t|');
-
-/**   print account balance   */
-  print(
-      '| Current Balance: ${account.balance}${account.balance == 0.0 ? '\t' : ''}\t\t\t\t\t\t\t\t|');
-  print('|\t\t\t\t\t\t\t\t\t\t\t|');
-
-/**   start withdraw transaction*/
-  double? withdraw = account.withdraw(100);
-  print('| Withdraw Action With Amount 100\t\t\t\t\t\t\t|');
-
-/** 
- * perform withdraw transaction with the current balance before any deposit transaction
- * check withdraw status with return value from withdraw method
- * if null {this means the balance - 100 < 0}
- * if has value {this means the balance - 100 >= 0} and the value is the new balance after withdrawing
- * */
-  print(
-      '|\t ${withdraw != null ? 'Successfully Withdraw Transaction, the New Balance is: $withdraw' : 'oops, Failed Withdraw Transaction=> inSufficient Balance'}\t\t\t|');
-  print('|\t\t\t\t\t\t\t\t\t\t\t|');
-
-/**   start deposit transaction and print the new balance */
-  double deposit = account.deposit(1000);
-  print('| Deposit Action With Amount 1000\t\t\t\t\t\t\t|');
-  print(
-      '| \t Successfully Deposit Transaction, the New Balance is: $deposit\t\t\t|');
-  print('|\t\t\t\t\t\t\t\t\t\t\t|');
-
-/**
- * perform deposit transaction and print the new balance after the deposit transaction
- * and print the new balance after the deposit transaction if withdraw transaction has value
- */
-  double? withdraw2 = account.withdraw(750);
-  print('| Withdraw Action With Amount 750\t\t\t\t\t\t\t|');
-  print(
-      '|\t ${withdraw2 != null ? 'Successfully Withdraw Transaction, the New Balance is: $withdraw2' : 'oops, Failed Withdraw Transaction=> inSufficient Balance'}\t\t\t|');
+      '-------------------------------- Welcome: ${account.id} -------------------------------------------');
   print('|\t\t\t\t\t\t\t\t\t\t\t|');
 
 /**   print account details using toString() the override */
-  print('| Account Details: ${account.toString()}\t\t\t\t\t|');
+  print('| Account Details: ${account.toString()}\t\t\t\t\t\t|');
+  print('|\t\t\t\t\t\t\t\t\t\t\t|');
+
+/**   start withdraw transaction with negative amount - before any deposit transaction*/
+  handleWithdrawing(account, -100);
+  print('|\t\t\t\t\t\t\t\t\t\t\t|');
+
+/**   start withdraw transaction with valid amount - before any deposit transaction*/
+  handleWithdrawing(account, 100);
+  print('|\t\t\t\t\t\t\t\t\t\t\t|');
+
+/**   start deposit transaction with negative amount*/
+  handleDeposit(account, -1000);
+  print('|\t\t\t\t\t\t\t\t\t\t\t|');
+
+/**   start deposit transaction with valid amount*/
+  handleDeposit(account, 750);
+  print('|\t\t\t\t\t\t\t\t\t\t\t|');
+
+/**   start withdraw transaction with valid amount - after deposit transaction*/
+  handleWithdrawing(account, 750);
+
   print('|\t\t\t\t\t\t\t\t\t\t\t|');
   print(
       '-----------------------------------------------------------------------------------------\n');
+}
+
+void handleWithdrawing(BankAccount account, double amount) {
+  double? withdraw = account.withdraw(amount);
+  print('| Withdraw Action With Amount $amount\t\t\t\t\t\t\t|');
+
+/** 
+ * check withdraw status with return value from withdraw method:
+ * if -1 {this means the balance - amount < 0}
+ * if null {this means the amount that need to withdraw is invalid {negative amount}}
+ * if has value {this means the balance - amount >= 0} and the value is the new balance after withdrawing
+ * */
+  switch (withdraw) {
+    case null:
+      {
+        print(
+            '| oops, Failed Withdraw Transaction => Invalid Amount, The Current Balance is: ${account.balance}\t|');
+        break;
+      }
+    case -1:
+      {
+        print(
+            '| oops, Failed Withdraw Transaction => inSufficient Balance, The Current Balance is: ${account.balance}|');
+        break;
+      }
+    default:
+      print(
+          '| Successfully Withdraw Transaction, the New Balance is: $withdraw\t\t\t\t|');
+  }
+}
+
+void handleDeposit(BankAccount account, double amount) {
+  double? deposit = account.deposit(amount);
+  print('| Deposit Action With Amount $amount\t\t\t\t\t\t\t|');
+  switch (deposit) {
+    case null:
+      {
+        print(
+            '| oops, Failed Deposit Transaction => Invalid Amount, The Current Balance is: ${account.balance}\t|');
+        break;
+      }
+    default:
+      print(
+          '| Successfully Deposit Transaction, the New Balance is: $deposit\t\t\t\t|');
+  }
 }

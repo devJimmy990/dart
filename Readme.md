@@ -32,13 +32,17 @@ Create a BankAccount class to withdraw or deposit amount of money
 
 - define `get` methods to get private variables values.
 
-- define `deposit` method to get the current balance and add the new amount then return the new balance.
+- `override` toString() method to print {_id, _balance}.
+
+- define `deposit` method to get the current balance and add the new amount:
+    - amount < 0 {then return null} `invalid input`
+    - amount > 0 {then return the new balance} `valid-transaction`
 
 - Define `withdraw` method to get the current balance and deduct the needed amount if this operation has:
-    - result < 0  {then return null}
-    - result > 0  {then return the new balance after deduction}.
+    - amount < 0  {then return null} `invalid input`
+    - result < 0  {then return -1} `the new balance will be negative`
+    - result > 0  {then return the new balance after deduction}. `valid-transaction`
 
-- `override` toString() method to print {_id, _balance}.
 
 ### Draft Main FUnction 
 - declare account2 as bank-account object using `named-constructor` {id : 002}.
